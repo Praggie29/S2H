@@ -13,7 +13,6 @@ public:
                     subArraySum -= nums[i];
                      i++;
                     if (subArraySum >= target) minSizedSubArray = min(minSizedSubArray, j - i + 1);
-                   
                 }
             }
             j++;
