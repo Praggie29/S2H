@@ -6,13 +6,13 @@ public:
     }
     
     int next(int price) {
-        int span = 1;
-        while (!st.empty() && st.top().first <= price ) {
-            span += st.top().second;
+        int cnt = 1;
+        while ( !st.empty() && st.top().first <= price ) {
+            cnt += st.top().second;
             st.pop();
         }
-        st.push({price,span});
-        return span;
+        st.push({price,cnt});
+        return cnt;
     }
 };
 
