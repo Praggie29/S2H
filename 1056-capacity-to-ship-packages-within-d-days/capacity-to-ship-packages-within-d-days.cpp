@@ -1,33 +1,34 @@
 class Solution {
 public:
-    bool solve ( vector<int>& weights, int days, int mid ) {
-        int count = 1;
-        int sum = 0;
+    long long f ( vector<int>& weights, int days , int weight ) {
+        long long wt = weight;
+        long long daysCnt = 1;
         for ( int i = 0 ; i < weights.size() ; i ++ ) {
-            if ( sum + weights[i] <= mid ) sum += weights[i];
+            if ( weights[i] <= wt ) {
+                wt -= weights[i];
+            }
             else {
-                count++;
-                sum = weights[i];
+                daysCnt++;
+                wt = weight - weights[i];
             }
         }
-        return count <= days;
+        return daysCnt;
     }
     int shipWithinDays(vector<int>& weights, int days) {
-        int sum = 0;
-        for ( int i = 0 ; i < weights.size() ; i ++ ) sum += weights[i];
+        int n = weights.size();
         int low = *max_element(weights.begin(),weights.end());
-        int high = sum;
-        int leastWeightCapacity = INT_MAX;
+        int high = accumulate(weights.begin(), weights.end(), 0);
+        int ans;
         while ( low <= high ) {
             int mid = low + ( high - low ) / 2;
-            if ( solve(weights,days,mid) ) {
-                leastWeightCapacity =  mid ;
+            if ( f(weights,days,mid) <= days ) {
+                ans = mid;
                 high = mid - 1;
             }
             else {
                 low = mid + 1;
             }
         }
-        return leastWeightCapacity;
-    } 
+        return ans;
+    }
 };
