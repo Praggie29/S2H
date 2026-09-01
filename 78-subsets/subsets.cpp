@@ -9,6 +9,7 @@ public:
       f ( nums , i + 1 , n , store , ans );
       store.pop_back();
       f ( nums , i + 1 , n , store , ans );
+      store.pop_back();
    }
     vector<vector<int>> subsets(vector<int>& nums) {
         int n = nums.size();
