@@ -17,10 +17,10 @@ bool isPossible(vector<int>&nums,int k,int mid){
        int left=*max_element(nums.begin(),nums.end());
        int right=0;
        for(int num:nums) right+=num;
-       while(left<right){
+       while(left<=right){
         int mid=left+(right-left)/2;
         if(isPossible(nums,k,mid)){
-            right=mid;
+            right=mid-1;
         }else{
             left=mid+1;
         }
