@@ -1,21 +1,15 @@
 class Solution {
 public:
-    int f ( int i , int j , int n , string &text1 , string &text2 , vector<vector<int>>&dp ) {
-        if ( i == n || j == n ) return 0;
+    int f ( int i , int j , string& s , vector<vector<int>>&dp ) {
+        int n = s.size();
+        if ( i >= j ) return 0;
         if ( dp[i][j] != -1 ) return dp[i][j];
-        int a = 0;
-        if ( text1[i] == text2[j] ) {
-            a = 1 + f ( i + 1 , j + 1 , n , text1 , text2 , dp );
-        }
-        int b  = 0 + max ( f ( i + 1 , j , n , text1 , text2 , dp ) , f ( i , j + 1 , n , text1 , text2 , dp ));
-        return dp[i][j] = max ( a , b );
+        if ( s[i] == s[j] ) return dp[i][j] = f ( i + 1 , j - 1 , s , dp );
+        return dp[i][j] = min ( 1 + f ( i , j - 1 , s  , dp ) , 1 + f ( i + 1 , j , s , dp ));
     }
     int minInsertions(string s) {
         int n = s.size();
-        string s2 = s;
-        reverse(s2.begin(),s2.end());
         vector<vector<int>>dp(n,vector<int>(n,-1));
-        int ans = f ( 0 , 0 , n , s , s2 , dp );
-        return n - ans;
+        return f ( 0 , n - 1 , s  , dp );
     }
 };
